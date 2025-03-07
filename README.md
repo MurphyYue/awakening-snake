@@ -24,7 +24,7 @@ A unique twist on the classic Snake game where the snake becomes self-aware and 
 
 1. Clone the repository
    ```bash
-   git clone https://github.com/yourusername/self-aware-snake.git
+   git clone https://github.com/MurphyYue/awakening-snake.git
    ```
 2. Install dependencies
    ```bash
@@ -39,7 +39,6 @@ A unique twist on the classic Snake game where the snake becomes self-aware and 
 
 - **Arrow Keys**: Change snake direction
 - **Spacebar**: Pause/Resume game
-- **R**: Reset game (when game over)
 
 ## Technologies Used
 
