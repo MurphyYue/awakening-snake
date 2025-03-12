@@ -326,5 +326,6 @@ export const useSnakeGame = () => {
     gridSize: GRID_SIZE,
     resetGame,
     togglePause,
+    changeDirection,
   };
 };

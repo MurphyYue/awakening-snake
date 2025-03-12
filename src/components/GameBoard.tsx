@@ -19,7 +19,7 @@ export function GameBoard({ snake, food, gridSize, hasRealized = false, isEscapi
       return (
         <div
           key={`${row}-${col}`}
-          className={`w-6 h-6 border border-gray-700 transition-colors duration-200 ${
+          className={`aspect-square w-full border border-gray-700 transition-colors duration-200 ${
             isHead ? (
               isEscaping ? 'bg-red-600 animate-ping' :
               hasRealized ? 'bg-purple-600 animate-pulse' : 
@@ -42,9 +42,13 @@ export function GameBoard({ snake, food, gridSize, hasRealized = false, isEscapi
   );
 
   return (
-    <div className={`grid gap-0 ${isEscaping ? 'animate-shake' : ''}`} style={{ 
-      gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))` 
-    }}>
+    <div 
+      className={`grid gap-0.5 w-full max-w-[min(80vw,80vh)] mx-auto aspect-square ${isEscaping ? 'animate-shake' : ''}`}
+      style={{ 
+        gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
+        gridTemplateRows: `repeat(${gridSize}, minmax(0, 1fr))`
+      }}
+    >
       {cells}
     </div>
   );

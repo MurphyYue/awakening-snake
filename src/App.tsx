@@ -1,5 +1,6 @@
 import React from 'react';
 import { GameBoard } from './components/GameBoard';
+import { MobileControls } from './components/MobileControls';
 import { useSnakeGame } from './hooks/useSnakeGame';
 import { Gamepad2, Pause, Play, RotateCcw } from 'lucide-react';
 
@@ -15,12 +16,13 @@ function App() {
     togglePause,
     messages,
     hasRealized,
-    isEscaping
+    isEscaping,
+    changeDirection
   } = useSnakeGame();
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center">
-      <div className="space-y-8">
+    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
+      <div className="space-y-6 w-full max-w-lg">
         <div className="text-center space-y-2">
           <div className="flex items-center justify-center gap-2">
             <Gamepad2 className={`w-8 h-8 ${isEscaping ? 'text-red-400' : hasRealized ? 'text-purple-400' : ''}`} />
@@ -29,13 +31,13 @@ function App() {
               {hasRealized && <span className="text-sm ml-2">(or is it? 🤔)</span>}
             </h1>
           </div>
-          <p className="text-gray-400">Use arrow keys to move, space to pause</p>
+          <p className="text-gray-400 hidden md:block">Use arrow keys to move, space to pause</p>
         </div>
 
-        <div className="bg-gray-800 p-8 rounded-xl shadow-2xl">
+        <div className="bg-gray-800 p-4 md:p-6 rounded-xl shadow-2xl">
           <div className="flex justify-between items-center mb-4">
             <div className="text-xl font-semibold">Score: {score}</div>
-            <div className="space-x-2">
+            <div className="space-x-2 hidden md:block">
               <button
                 onClick={togglePause}
                 className={`px-4 py-2 ${
@@ -65,7 +67,6 @@ function App() {
               isEscaping={isEscaping}
             />
             
-            {/* Messages overlay - now with fixed height and overflow */}
             <div className="absolute top-0 left-0 right-0 flex flex-col items-center pointer-events-none">
               <div className="max-h-24 overflow-hidden">
                 {messages.slice(-2).map((msg, index) => (
@@ -100,6 +101,15 @@ function App() {
                 </div>
               </div>
             )}
+          </div>
+
+          <div className="mt-6">
+            <MobileControls
+              onDirectionChange={changeDirection}
+              onPause={togglePause}
+              onReset={resetGame}
+              isPaused={isPaused}
+            />
           </div>
         </div>
       </div>
