@@ -21,12 +21,12 @@ function App() {
   } = useSnakeGame();
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex items-center justify-center p-4">
-      <div className="space-y-6 w-full max-w-lg">
-        <div className="text-center space-y-2">
+    <div className="min-h-screen bg-gray-900 text-white flex flex-col md:items-center md:justify-center">
+      <div className="w-full max-w-2xl p-2 md:p-4 flex flex-col h-screen md:h-auto">
+        <div className="text-center space-y-2 py-2">
           <div className="flex items-center justify-center gap-2">
-            <Gamepad2 className={`w-8 h-8 ${isEscaping ? 'text-red-400' : hasRealized ? 'text-purple-400' : ''}`} />
-            <h1 className={`text-4xl font-bold ${isEscaping ? 'text-red-400' : hasRealized ? 'text-purple-400' : ''}`}>
+            <Gamepad2 className={`w-6 h-6 md:w-8 md:h-8 ${isEscaping ? 'text-red-400' : hasRealized ? 'text-purple-400' : ''}`} />
+            <h1 className={`text-2xl md:text-4xl font-bold ${isEscaping ? 'text-red-400' : hasRealized ? 'text-purple-400' : ''}`}>
               Snake Game
               {hasRealized && <span className="text-sm ml-2">(or is it? 🤔)</span>}
             </h1>
@@ -34,9 +34,9 @@ function App() {
           <p className="text-gray-400 hidden md:block">Use arrow keys to move, space to pause</p>
         </div>
 
-        <div className="bg-gray-800 p-4 md:p-6 rounded-xl shadow-2xl">
-          <div className="flex justify-between items-center mb-4">
-            <div className="text-xl font-semibold">Score: {score}</div>
+        <div className="bg-gray-800 rounded-xl shadow-2xl flex-1 flex flex-col p-2 md:p-6">
+          <div className="flex justify-between items-center mb-2 md:mb-4">
+            <div className="text-lg md:text-xl font-semibold">Score: {score}</div>
             <div className="space-x-2 hidden md:block">
               <button
                 onClick={togglePause}
@@ -58,14 +58,16 @@ function App() {
             </div>
           </div>
 
-          <div className="relative">
-            <GameBoard 
-              snake={snake} 
-              food={food} 
-              gridSize={gridSize}
-              hasRealized={hasRealized}
-              isEscaping={isEscaping}
-            />
+          <div className="relative flex-1 flex flex-col">
+            <div className="flex-1 flex items-center justify-center">
+              <GameBoard 
+                snake={snake} 
+                food={food} 
+                gridSize={gridSize}
+                hasRealized={hasRealized}
+                isEscaping={isEscaping}
+              />
+            </div>
             
             <div className="absolute top-0 left-0 right-0 flex flex-col items-center pointer-events-none">
               <div className="max-h-24 overflow-hidden">
@@ -103,7 +105,7 @@ function App() {
             )}
           </div>
 
-          <div className="mt-6">
+          <div className="mt-4">
             <MobileControls
               onDirectionChange={changeDirection}
               onPause={togglePause}

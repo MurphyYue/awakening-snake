@@ -43,7 +43,7 @@ export function GameBoard({ snake, food, gridSize, hasRealized = false, isEscapi
 
   return (
     <div 
-      className={`grid gap-0.5 w-full max-w-[min(80vw,80vh)] mx-auto aspect-square ${isEscaping ? 'animate-shake' : ''}`}
+      className={`grid gap-0.5 w-full max-w-[95vmin] aspect-square ${isEscaping ? 'animate-shake' : ''}`}
       style={{ 
         gridTemplateColumns: `repeat(${gridSize}, minmax(0, 1fr))`,
         gridTemplateRows: `repeat(${gridSize}, minmax(0, 1fr))`
