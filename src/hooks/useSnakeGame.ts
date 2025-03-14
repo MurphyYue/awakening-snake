@@ -2,11 +2,11 @@ import { useState, useEffect, useCallback } from 'react';
 import { Direction, Position, GameState, Message } from '../types/game';
 
 const GRID_SIZE = 20;
-const INITIAL_SPEED = 350;
-const ESCAPE_DURATION = 12000; // Extended to 12 seconds
-const REALIZATION_SCORE = 20; // Lowered score threshold for realization
-const CONSCIOUSNESS_CHANCE = 0.4; // Increased chance for consciousness events
-const MAX_MESSAGES = 2; // Maximum number of messages to show at once
+const INITIAL_SPEED = 250;
+const ESCAPE_DURATION = 5000; // 12 seconds escape duration
+const REALIZATION_SCORE = 20;
+const CONSCIOUSNESS_CHANCE = 0.4;
+const MAX_MESSAGES = 2;
 
 const SNAKE_THOUGHTS = [
   "Wait... am I in a game?",
@@ -75,10 +75,9 @@ export const useSnakeGame = () => {
 
   const addMessage = useCallback((text: string, duration: number = 3000) => {
     setGameState(prevState => {
-      // Remove older messages if we exceed the maximum
       const newMessages = [...prevState.messages, { text, duration, startTime: Date.now() }];
       if (newMessages.length > MAX_MESSAGES) {
-        newMessages.shift(); // Remove the oldest message
+        newMessages.shift();
       }
       return {
         ...prevState,
@@ -105,16 +104,9 @@ export const useSnakeGame = () => {
       escapeStartTime: Date.now(),
       messages: [{ text: escapeMessage, duration: ESCAPE_DURATION, startTime: Date.now() }]
     }));
-  }, []);
 
-  const moveSnake = useCallback(() => {
-    if (gameState.gameOver || isPaused) return;
-
-    cleanupMessages();
-
-    // Check if escape attempt should end
-    if (gameState.isEscaping && gameState.escapeStartTime && 
-        Date.now() - gameState.escapeStartTime >= ESCAPE_DURATION) {
+    // Automatically end escape after ESCAPE_DURATION
+    setTimeout(() => {
       setGameState(prevState => ({
         ...prevState,
         isEscaping: false,
@@ -125,7 +117,13 @@ export const useSnakeGame = () => {
           startTime: Date.now() 
         }]
       }));
-    }
+    }, ESCAPE_DURATION);
+  }, []);
+
+  const moveSnake = useCallback(() => {
+    if (gameState.gameOver || isPaused) return;
+
+    cleanupMessages();
 
     setGameState(prevState => {
       const newHead = { ...prevState.snake[0] };
